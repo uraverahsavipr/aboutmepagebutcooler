@@ -44,7 +44,9 @@
         }
         main {
             padding: 2rem;
-            background-color: #222;
+            background: linear-gradient(270deg, #1a1a1a, #333);
+            background-size: 400% 400%;
+            animation: backgroundAnimation 15s ease infinite;
             text-align: center;
             border-top: 2px solid #444;
             animation: fadeIn 2s;
@@ -56,6 +58,11 @@
         @keyframes slideDown {
             from { transform: translateY(-100%); }
             to { transform: translateY(0); }
+        }
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .profile-pic {
             width: 150px;
@@ -97,6 +104,34 @@
             font-size: 1.2rem;
             animation: fadeIn 3s;
         }
+        .social-icons {
+            margin-top: 20px;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            color: #007BFF;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .scroll-to-top:hover {
+            transform: scale(1.2);
+        }
         footer {
             background-color: #333;
             color: #fff;
@@ -106,6 +141,21 @@
             width: 100%;
             bottom: 0;
             border-top: 2px solid #444;
+        }
+        .typing-animation {
+            border-right: .1em solid #007BFF;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40, end), blink .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #007BFF; }
         }
     </style>
 </head>
@@ -121,7 +171,7 @@
     <main>
         <img id="profile-pic" alt="Profile Picture" class="profile-pic">
         <h2>Hi, I'm Chris!</h2>
-        <p>Welcome to my personal website. I'm passionate about technology and creativity, and I love to share my journey with the world.</p>
+        <p class="typing-animation">Welcome to my personal website. Just some kid making game sites and exploits, mostly known as the hacker. I have been working on my biggest project yet to run fortnite in a games website without it blocked. Maybe I will do it, maybe I won't...</p>
         <div class="fun-facts">
             <h3>Fun Facts</h3>
             <p>Even though I'm Chris The Hacker, I don't always hack.</p>
@@ -132,17 +182,32 @@
         <div class="contact-info">
             <p>Email: <a href="mailto:morenochristopher580@gmail.com" style="color: #007BFF;">morenochristopher580@gmail.com</a></p>
         </div>
+        <div class="social-icons">
+            <a href="https://google.com" target="_blank">Snapchat: itsjustachris</a>
+            <a href="https://github.com/uraverahsavipr?" target="_blank">GitHub</a>
+        </div>
     </main>
     <footer>
         &copy; 2025 Chris
     </footer>
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
     <script>
         async function fetchProfilePicture() {
-            const response = await fetch('https://raw.githubusercontent.com/uraverahsavipr/aboutmepagebutcooler/refs/heads/main/dog-removebg-preview.png?raw=true');
-            const imageUrl = response.url;
-            document.getElementById('profile-pic').src = imageUrl;
+            const response = await fetch('https://raw.githubusercontent.com/uraverahsavipr/aboutmepagebutcooler/refs/heads/main/dog-removebg-preview.png');
+            if (response.ok) {
+                const imageBlob = await response.blob();
+                const imageUrl = URL.createObjectURL(imageBlob);
+                document.getElementById('profile-pic').src = imageUrl;
+            } else {
+                console.error('Error fetching the profile picture:', response.statusText);
+            }
         }
         fetchProfilePicture();
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
+
