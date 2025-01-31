@@ -119,7 +119,7 @@
         </nav>
     </header>
     <main>
-        <img src="https://github.com/uraverahsavipr/aboutmepagebutcooler/blob/main/dog-removebg-preview.png" alt="Profile Picture" class="profile-pic">
+        <img id="profile-pic" alt="Profile Picture" class="profile-pic">
         <h2>Hi, I'm Chris!</h2>
         <p>Welcome to my personal website. I'm passionate about technology and creativity, and I love to share my journey with the world.</p>
         <div class="fun-facts">
@@ -136,6 +136,13 @@
     <footer>
         &copy; 2025 Chris
     </footer>
+    <script>
+        async function fetchProfilePicture() {
+            const response = await fetch('https://github.com/uraverahsavipr/aboutmepagebutcooler/blob/main/dog-removebg-preview.png?raw=true');
+            const imageUrl = response.url;
+            document.getElementById('profile-pic').src = imageUrl;
+        }
+        fetchProfilePicture();
+    </script>
 </body>
 </html>
-
